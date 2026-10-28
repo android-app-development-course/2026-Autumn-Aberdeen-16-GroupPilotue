@@ -1,65 +1,141 @@
-# CampusCue
+# GroupPilot AI
 
-**A multimodal campus task assistant**
+## 让你的每一分认真，都被看见。
 
-Mobile Intelligent Applications | Group 16 | Phase One
+**AI 小组作业规划与协作平台**  
+AI Group Planning and Collaboration Platform
 
-CampusCue is a proposed mobile application that turns coursework screenshots, classroom audio and documents into task drafts with source references. Students review deadlines, resolve conflicting requirements and confirm reminders. Short video is planned for the next development milestone.
+从读懂要求到动态分工，用过程与成果记录每个人的贡献。
 
-## Team
+> 进度有变化，下一步有办法。
 
-| Member | Role |
+## GroupPilot 是什么？
+
+GroupPilot 是一个帮助大学生小组共同完成课程作业的 AI 协作平台。
+
+以四个人一起完成一份课程报告为例：
+
+1. 创建小组，上传作业文件、截图或要求录音。
+2. AI 解释作业要求，结合成员的时间、擅长内容和已有任务，提出计划与分工。
+3. 成员共享文件、更新进度，并确认彼此提交的成果。
+4. 有人延期或实际进度发生变化时，AI 检查对其他成员的影响，提出调整建议。
+5. 项目结束后，平台依据成果与协作记录，计算贡献并生成可核对的报告。
+
+成员始终可以修改 AI 建议。正式分工调整需要受影响成员确认，上传文件也需要经过验收才能计为完成。
+
+## 核心功能
+
+### 1. 多模态理解与进度更新
+
+计划支持 PDF、PPTX、DOCX、截图、文字和短音频录音。
+
+AI 提取作业要求，提供中英文解释，并保留页码、段落或音频时间点，方便核对原始信息。
+
+多模态输入也用于执行过程。成员上传新的报告、演示文稿或进度说明后，平台分析新增成果、尚未完成的内容和可能受影响的任务，再提出进度更新建议。
+
+### 2. AI 规划与动态协作
+
+成员填写空闲时间、擅长内容和已有任务。AI 据此拆分作业阶段，建议负责人、截止日期、任务依赖和验收条件。
+
+执行过程中，平台根据实际进度检查关联任务。例如：
+
+> A 的数据整理延期，可能影响 B 的分析、C 的报告和 D 的展示。平台提示这些影响，并建议 C 先写背景、D 先搭展示框架，B 在数据验收后继续分析。
+
+调整建议展示原因和新旧计划差异，由受影响成员确认后生效。任务提醒支持频率设置，减少重复催促和无关通知。
+
+### 3. 有依据的贡献度计算
+
+平台记录任务承担、成果提交、修改、整合、审核和协助工作，并允许补充经相关成员确认的线下贡献。
+
+拟议计算规则：
+
+**个人积分 = 各工作包的「基础分 × 已验收比例 × 实际分摊比例」之和**
+
+**个人贡献占比 = 个人积分 ÷ 全组已确认积分 × 100%**
+
+例如，一个基础分为 10 分的工作包已验收 80%，A、B 确认的实际分摊分别为 75% 和 25%，则两人的已确认积分分别为 6 分和 2 分。
+
+计算机制遵循以下原则：
+
+- 基础分和验收标准事先约定。
+- 整合、审核和协助工作也可以记录。
+- 重复上传不增加积分，拆分任务不增加基础分总额。
+- 待验收和存在争议的工作单独展示。
+- 成员可以查看依据、补充证据和提出异议。
+- 全组已确认积分为 0 时，不计算贡献占比。
+
+AI 负责整理证据和解释，系统按照规则计算。公平性仍需通过师生测试验证，贡献占比不直接等同于课程成绩。
+
+## 目标用户
+
+优先服务 3–6 人的大学生课程作业小组，尤其关注以下三类需求：
+
+| 目标用户 | 主要需求 |
 | --- | --- |
-| 何嘉俊 | Team leader |
-| 王舜祺 | Team member |
-| 陈实 | Team member |
-| 李文豪 | Team member |
+| 理解作业要求有困难的中外合办学生 | 看懂英文说明、听懂口头要求，明确交付标准 |
+| 需要公平计算贡献度的课程老师和学生 | 核对每个人的实际工作，减少结项时缺乏依据的争议 |
+| 需要调整计划和适度督促的小组 | 及时发现延期与阻塞，协调相关成员的下一步安排 |
 
-## Phase one deliverables
+三类需求可以重叠。学生参与日常协作，老师可以参考小组导出的贡献报告。首版不开发独立教师批阅系统。
 
-- [App Business Plan PDF](docs/CampusCue_App_Business_Plan_EN.pdf)
-- [Editable business plan text](docs/CampusCue_App_Business_Plan_EN.md)
-- [Presentation PowerPoint](presentation/CampusCue_Phase1_EN.pptx)
-- [Presentation PDF backup](presentation/CampusCue_Phase1_EN.pdf)
-- [English speaker script and Q&A](presentation/Speaker_Notes_EN.md)
-- [Interview and validation protocol](research/Validation_Protocol_EN.md)
+## 第一阶段材料
 
-## Target users and value
+- [中文汇报 PPT](GroupPilot_Phase1_ZH.pptx)
+- [PPT PDF 放映备份](GroupPilot_Phase1_ZH.pdf)
+- [中文逐页讲稿与答疑](GroupPilot_Speech_ZH.pdf)
+- [可编辑讲稿](GroupPilot_Speech_ZH.md)
+- [商业计划与市场分析](GroupPilot_Business_Plan_and_Market_ZH.pdf)
+- [可编辑商业计划](GroupPilot_Business_Plan_and_Market_ZH.md)
 
-The initial users are undergraduate students in one accessible course cohort. The core use case is keeping track of assignment requirements received across multiple sources. Group leaders are a secondary audience.
+PPT 与讲稿修订于 **2026-10-28**，商业计划沿用 **2026-10-26** 版。
 
-The proposed value is a checkable coursework workflow: combine sources for an assignment, review extracted requirements against the evidence, resolve uncertainty, then save a confirmed task and reminder. Interviews and prototype tests will evaluate whether this reduces effort compared with current tools.
+PPT 共 13 页，其中前 11 页主讲、后 2 页备用。汇报先介绍产品定位与功能，再介绍目标用户、市场分析和实施方案。讲稿约 9–10 分钟。
 
-## Planned scope
+## 团队分工
 
-| Development milestone | Capabilities |
-| --- | --- |
-| First | Text, JPG/PNG, text based PDF, DOCX and short audio; structured tasks, source review, explicit date conflicts for a user selected assignment and reminders |
-| Second | Short video with audio and selected frames, scanned PDFs and automatic duplicate suggestions |
+移动智能应用课程 · 第 16 组
 
-## Proposed AI workflow
+| 成员 | 计划工作量 | 主要责任 |
+| --- | --- | --- |
+| 何嘉俊（队长） | 40% | 需求与架构、AI 与贡献规则接口、系统集成、报告统稿与验收 |
+| 王舜祺 | 20% | Android 客户端、小组与任务看板、计划和成果确认界面 |
+| 陈实 | 20% | 竞品调研、师生访谈、双语样例、试点招募与推广分析 |
+| 李文豪 | 20% | 文件、通知与证据日志、贡献计算和依赖联动测试、缺陷复测 |
 
-1. Import user selected materials the user is authorised to process.
-2. Extract text, image information or timestamped speech.
-3. Use existing AI models to produce structured task candidates.
-4. Validate fields and display supporting source passages.
-5. Ask the user to resolve uncertain dates and confirm the task.
-6. Save the confirmed task and schedule the chosen reminder.
+以上比例为拟定开发工作量，不代表已经完成的实际贡献。
 
-## Current status
+## 开发计划
 
-This repository contains the phase one proposal and presentation. Application development and user validation remain planned work. Reported budgets, performance thresholds and pilot targets are assumptions, not measured results.
+采用 Android 客户端与模块化后端，调用现成 AI 模型。
 
-## Repository identity
+后端按以下职责组织：
 
-Course organisation: `android-app-development-course`
+- 小组管理：成员、角色与访问权限。
+- 任务与计划：分工、依赖、状态、计划版本和贡献规则。
+- 文件管理：上传、版本、解析结果与证据位置。
+- 通知：到期、验收、阻塞和分工变更提醒。
+- AI 分析：双语解释、计划与调整建议、贡献证据整理。
 
-Planned repository name: `2026-Autumn-Aberdeen-16-CampusCue`
+### 里程碑一
 
-## Development and data handling
+完成文字、PDF 和截图理解，以及小组管理、任务分工、成果验收、依赖调整和贡献计算。
 
-The course permits existing AI models. Providers and implementation details will be selected after reviewing cost, accuracy and data handling. Setup instructions will be added when application code is available. API keys, private recordings and participant identities must not be committed.
+### 里程碑二
 
-## References
+接入 PPTX、DOCX 和五分钟以内的清晰中英文单人录音，支持多模态进度更新。
 
-The business plan includes the source list, competitor comparison and the limits of the available evidence. The proposed workflow is not claimed to be a new foundation model or the first AI task manager.
+完整课堂录音、视频和复杂跨文件语义重叠检测作为后续扩展。AI 不可用时，仍保留手动分工和更新进度的能力。
+
+## 当前状态与验证计划
+
+当前处于产品方案与公开资料调研阶段，尚未提供可安装的 App，也没有完成原型实测或师生访谈。
+
+后续计划：
+
+1. 访谈 6–8 名学生及 2–3 名课程老师。
+2. 邀请 4 个小组进行场景对比测试。
+3. 开展七天试点，观察实际协作、使用成本和退出原因。
+
+重点验证要求理解是否准确、延期影响是否识别完整、贡献积分是否可解释和复算，以及成员是否愿意持续使用。
+
+以上功能和指标均为计划，尚非已经验证的产品效果。
