@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/paper"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:paddingBottom="28dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/accountLabel"
+                style="@style/Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="何嘉俊 · 2026 秋" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/appSettings"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="设置"
+                android:focusable="true"
+                android:padding="7dp"
+                android:src="@drawable/ic_gear"
+                android:tint="@color/muted" />
+
+            <TextView
+                android:id="@+id/coursesLabel"
+                style="@style/Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 门课程" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif"
+            android:text="项目库"
+            android:textColor="@color/ink"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/summary"
+            style="@style/Meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="4 个项目 · 2 个等你处理" />
+
+        <!-- Invitation -->
+        <LinearLayout
+            android:id="@+id/inviteBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_pending_box"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/inviteKind"
+                style="@style/MicroOchre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请 · 待处理" />
+
+            <TextView
+                android:id="@+id/inviteTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="迭代 3 · 可用性测试"
+                android:textColor="@color/ink"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/inviteMeta"
+                style="@style/Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="周楚涵 邀请你 · SOFT3001 · 5 人" />
+
+            <TextView
+                android:id="@+id/inviteAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="查看邀请 ›"
+                android:textColor="@color/ochre"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical" />
+
+        <!-- Empty state -->
+        <LinearLayout
+            android:id="@+id/emptyBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_dashed"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="还没有任何项目"
+                android:textColor="@color/ink"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="新建一个小组项目，或输入邀请码加入别人的项目。" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/createBtn"
+                style="@style/BtnPrimary"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:text="创建项目" />
+
+            <TextView
+                android:id="@+id/joinBtn"
+                style="@style/BtnGhost"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="加入项目" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/Micro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="项目按课程归档 · 同一门课可以有多组" />
+    </LinearLayout>
+</ScrollView>

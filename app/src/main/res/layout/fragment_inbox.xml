@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/paper"
+    android:clipToPadding="false"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/libraryBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="-8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="返回项目库"
+                android:focusable="true"
+                android:padding="7dp"
+                android:src="@drawable/ic_back"
+                android:tint="@color/ink" />
+
+            <TextView
+                android:id="@+id/courseLabel"
+                style="@style/Micro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/appSettings"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="设置"
+                android:focusable="true"
+                android:padding="7dp"
+                android:src="@drawable/ic_gear"
+                android:tint="@color/muted" />
+
+            <TextView
+                android:id="@+id/groupLabel"
+                style="@style/Micro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:baselineAligned="false"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="收件箱"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/unreadLabel"
+                style="@style/Meta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/Meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="确认请求、修正与计划变更都会出现在这里" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/inboxRows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/emptyBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="40dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="没有新的通知"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/Meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="有人提交或确认时，这里会亮起来" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/Micro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="收件箱只做提醒，不代替结算" />
+    </LinearLayout>
+</ScrollView>

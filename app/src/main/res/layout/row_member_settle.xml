@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/memberName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/ink"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/memberScore"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFeatureSettings="tnum"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/memberPct"
+            style="@style/Meta"
+            android:layout_width="34dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFeatureSettings="tnum"
+            android:gravity="end" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/memberMeta"
+        style="@style/Meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp" />
+
+    <FrameLayout
+        android:id="@+id/memberTrack"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line">
+
+        <View
+            android:id="@+id/memberFill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/accent" />
+    </FrameLayout>
+</LinearLayout>

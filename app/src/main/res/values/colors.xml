@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paper / ink -->
+    <color name="paper">#F1F3F5</color>
+    <color name="sheet">#FFFFFF</color>
+    <color name="ink">#0A1F3D</color>
+    <color name="muted">#5F6B78</color>
+    <color name="line">#D8DEE5</color>
+
+    <!-- Accent (indigo porcelain) -->
+    <color name="accent">#315D93</color>
+    <color name="accent_wash">#E4EAF2</color>
+
+    <!-- Deviation / unresolved only -->
+    <color name="ochre">#B4472E</color>
+    <color name="ochre_wash">#F3E4DF</color>
+    <color name="ochre_veil">#2EB4472E</color>
+
+    <!-- Translucent ink for pressed / secondary layers -->
+    <color name="ink_06">#0F0A1F3D</color>
+    <color name="ink_12">#1F0A1F3D</color>
+    <color name="ink_40">#660A1F3D</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
