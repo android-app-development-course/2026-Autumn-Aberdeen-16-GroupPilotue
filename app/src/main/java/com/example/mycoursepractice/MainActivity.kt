@@ -20,9 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.mycoursepractice.data.AppSettings
 import com.example.mycoursepractice.data.Demo
+import com.example.mycoursepractice.data.Profile
+import com.example.mycoursepractice.data.Session
 import com.example.mycoursepractice.screens.BoardFragment
 import com.example.mycoursepractice.screens.InboxFragment
 import com.example.mycoursepractice.screens.LibraryFragment
+import com.example.mycoursepractice.screens.LoginFragment
 import com.example.mycoursepractice.screens.MaterialsFragment
 import com.example.mycoursepractice.screens.ReportFragment
 import com.example.mycoursepractice.ui.Fonts
@@ -33,7 +36,7 @@ import com.example.mycoursepractice.ui.dp
 
 class MainActivity : AppCompatActivity(), TabHost {
 
-    private enum class Mode { LIBRARY, PROJECT }
+    private enum class Mode { LOGIN, LIBRARY, PROJECT }
 
     private lateinit var root: View
     private lateinit var container: FrameLayout
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity(), TabHost {
      */
     override fun attachBaseContext(newBase: Context) {
         AppSettings.load(newBase)
+        Profile.load(newBase)
         val config = Configuration(newBase.resources.configuration)
         config.fontScale = AppSettings.fontScale
         super.attachBaseContext(newBase.createConfigurationContext(config))
@@ -90,11 +94,22 @@ class MainActivity : AppCompatActivity(), TabHost {
         }
 
         if (savedInstanceState == null) {
+            val loggedIn = Session.isLoggedIn(this)
+            mode = if (loggedIn) Mode.LIBRARY else Mode.LOGIN
+            val first: Fragment = if (loggedIn) LibraryFragment() else LoginFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, LibraryFragment())
+                .replace(R.id.container, first)
                 .commit()
-        } else if (Demo.currentId != null) {
-            mode = Mode.PROJECT
+        } else {
+            if (!Session.isLoggedIn(this)) {
+                // 退出登录后 recreate() 会走到这里：状态里还留着项目库，必须换回登录页
+                mode = Mode.LOGIN
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, LoginFragment())
+                    .commit()
+            } else {
+                mode = if (Demo.currentId != null) Mode.PROJECT else Mode.LIBRARY
+            }
         }
 
         supportFragmentManager.addOnBackStackChangedListener { updateChrome() }
@@ -188,6 +203,20 @@ class MainActivity : AppCompatActivity(), TabHost {
         showLibrary()
     }
 
+    /** 登录成功：落回账号层，清掉返回栈，不能按返回退回登录页。 */
+    fun onLoggedIn() {
+        mode = Mode.LIBRARY
+        currentTab = 0
+        tabsVisible = false
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.container, LibraryFragment())
+            .commit()
+        updateChrome()
+    }
+
     private fun showLibrary() {
         if (mode == Mode.LIBRARY) return
         Demo.closeProject()
@@ -247,7 +276,7 @@ class MainActivity : AppCompatActivity(), TabHost {
                 .setDuration(Motion.STANDARD_MS.toLong())
                 .setInterpolator(Motion.standardCurve)
                 .withEndAction {
-                    if (mode == Mode.LIBRARY ||
+                    if (mode != Mode.PROJECT ||
                         supportFragmentManager.backStackEntryCount > 0 ||
                         !tabsVisible
                     ) {

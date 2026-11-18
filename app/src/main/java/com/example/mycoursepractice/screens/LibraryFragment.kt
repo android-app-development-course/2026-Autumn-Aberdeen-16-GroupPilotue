@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mycoursepractice.R
 import com.example.mycoursepractice.data.Demo
+import com.example.mycoursepractice.data.Profile
 import com.example.mycoursepractice.data.Project
 import com.example.mycoursepractice.data.Role
 import com.example.mycoursepractice.data.Stage
+import com.example.mycoursepractice.ui.Avatar
 import com.example.mycoursepractice.ui.Fonts
 import com.example.mycoursepractice.ui.bindAppSettings
 import com.example.mycoursepractice.ui.colorOf
@@ -44,8 +46,8 @@ class LibraryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        root.findViewById<TextView>(R.id.accountLabel).text = "${Demo.me.name} · 2026 秋"
         bindAppSettings(root)
+        bindProfileChip()
 
         root.findViewById<View>(R.id.createBtn).setOnClickListener {
             push(CreateProjectFragment())
@@ -60,8 +62,27 @@ class LibraryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        bindProfileChip()
         bindInvitation()
         rebuild()
+    }
+
+    /** 抬头左边：头像 + 账号名，点进「个人信息」。 */
+    private fun bindProfileChip() {
+        val name = Profile.displayName().ifBlank { Demo.me.name }
+        val label = root.findViewById<TextView>(R.id.profileName)
+        label.text = name
+        Avatar.bind(
+            requireContext(),
+            root.findViewById(R.id.profileAvatarImage),
+            root.findViewById(R.id.profileAvatar),
+            Profile.avatarPath,
+            Profile.initial(),
+            24f
+        )
+        root.findViewById<View>(R.id.profileChip).setOnClickListener {
+            push(ProfileFragment())
+        }
     }
 
     private fun bindInvitation() {

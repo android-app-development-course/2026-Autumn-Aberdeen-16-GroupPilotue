@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="24dp"
-        android:paddingTop="20dp"
+        android:paddingTop="22dp"
         android:paddingEnd="24dp"
         android:paddingBottom="4dp">
 
@@ -61,35 +61,6 @@
             style="@style/Micro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="你的名字" />
-
-        <EditText
-            android:id="@+id/nameField"
-            style="@style/Field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:hint="例如 何嘉俊"
-            android:inputType="textPersonName"
-            android:maxLength="12"
-            android:maxLines="1"
-            android:textColor="@color/ink"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/nameHint"
-            style="@style/Meta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="会出现在成员栏、结算单与确认记录里"
-            android:textColor="@color/muted" />
-
-        <TextView
-            style="@style/Micro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
             android:text="字号" />
 
         <com.example.mycoursepractice.ui.widget.SegmentBar
@@ -111,7 +82,7 @@
             style="@style/Meta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="18dp"
             android:text="演示环境：设置只保存在这台设备上"
             android:textColor="@color/ink_40" />
     </LinearLayout>
@@ -121,7 +92,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="24dp"
-        android:paddingTop="20dp"
+        android:paddingTop="22dp"
         android:paddingEnd="24dp"
         android:paddingBottom="24dp">
 
