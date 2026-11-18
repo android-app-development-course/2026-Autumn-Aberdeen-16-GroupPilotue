@@ -1,0 +1,76 @@
+{
+  "source": "app/src/main/java/com/example/mycoursepractice",
+  "screenCount": 21,
+  "missing": [],
+  "diagrams": [
+    {
+      "file": "00-app-navigation.svg",
+      "width": 2040,
+      "height": 2017,
+      "pages": [
+        "LoginFragment",
+        "LibraryFragment",
+        "ProfileFragment",
+        "CreateProjectFragment",
+        "JoinProjectFragment",
+        "TaskOverviewFragment",
+        "BoardFragment",
+        "ProjectSettingsFragment",
+        "InboxFragment",
+        "PlanFragment",
+        "ReportFragment",
+        "ScoreDetailFragment",
+        "MaterialsFragment",
+        "RequirementFragment",
+        "GroupOverviewFragment",
+        "ItemDetailFragment",
+        "ItemEditFragment",
+        "SubmitFragment",
+        "ConfirmFragment",
+        "EvidenceFragment",
+        "CorrectionFragment"
+      ],
+      "nodes": 32
+    },
+    {
+      "file": "01-profile-and-task-overview.svg",
+      "width": 2040,
+      "height": 1913,
+      "pages": [
+        "ProfileFragment",
+        "TaskOverviewFragment"
+      ],
+      "nodes": 33
+    },
+    {
+      "file": "02-group-overview-and-permissions.svg",
+      "width": 2040,
+      "height": 1809,
+      "pages": [
+        "BoardFragment",
+        "GroupOverviewFragment",
+        "ProjectSettingsFragment"
+      ],
+      "nodes": 32
+    },
+    {
+      "file": "03-task-material-and-analysis.svg",
+      "width": 2040,
+      "height": 1835,
+      "pages": [
+        "ItemDetailFragment",
+        "ItemEditFragment",
+        "EvidenceFragment",
+        "CorrectionFragment",
+        "SubmitFragment",
+        "MaterialsFragment",
+        "RequirementFragment",
+        "ConfirmFragment",
+        "ReportFragment",
+        "ScoreDetailFragment",
+        "PlanFragment"
+      ],
+      "nodes": 33
+    }
+  ]
+}

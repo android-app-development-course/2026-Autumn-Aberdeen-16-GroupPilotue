@@ -1,0 +1,18 @@
+[
+  {
+    "file": "00-app-navigation.svg",
+    "failures": []
+  },
+  {
+    "file": "01-profile-and-task-overview.svg",
+    "failures": []
+  },
+  {
+    "file": "02-group-overview-and-permissions.svg",
+    "failures": []
+  },
+  {
+    "file": "03-task-material-and-analysis.svg",
+    "failures": []
+  }
+]
