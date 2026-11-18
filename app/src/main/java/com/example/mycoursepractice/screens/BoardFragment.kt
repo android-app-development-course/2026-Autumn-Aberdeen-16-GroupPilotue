@@ -15,6 +15,7 @@ import com.example.mycoursepractice.R
 import com.example.mycoursepractice.data.Demo
 import com.example.mycoursepractice.data.Stage
 import com.example.mycoursepractice.data.WorkItem
+import com.example.mycoursepractice.ui.action
 import com.example.mycoursepractice.ui.Fonts
 import com.example.mycoursepractice.ui.Motion
 import com.example.mycoursepractice.ui.bindAppSettings
@@ -32,6 +33,7 @@ class BoardFragment : Fragment() {
     private lateinit var rootView: View
 
     private var filter: Stage? = null
+    private var tasksCollapsed = false
     private var lastVersion = -1
 
     private val tickCells = mutableMapOf<Stage, Triple<View, TextView, TextView>>()
@@ -174,12 +176,20 @@ class BoardFragment : Fragment() {
 
     private fun rebuild(animate: Boolean) {
         refreshTicks()
-        if (memberRail.childCount == 0) buildMembers() else refreshMembers()
+        buildMembers()
         refreshPending()
 
         val scrollY = scroll.scrollY
         sections.removeAllViews()
 
+        sections.addView(requireContext().action("个人全任务总览") { push(TaskOverviewFragment.newInstance()) }.apply {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_task_tree, 0, 0, 0)
+        })
+        sections.addView(requireContext().action(if (tasksCollapsed) "▸ 展开项目任务" else "▾ 收起项目任务") {
+            tasksCollapsed = !tasksCollapsed
+            rebuild(animate = false)
+        })
+        if (tasksCollapsed) return
         val stages = filter?.let { listOf(it) } ?: Stage.values().toList()
         val rows = mutableListOf<View>()
         var index = 0
@@ -196,7 +206,9 @@ class BoardFragment : Fragment() {
                 val row = layoutInflater.inflate(R.layout.row_item, sections, false)
                 bindRow(row, item)
                 sections.addView(row)
-                sections.addView(requireContext().hairline())
+                (row.layoutParams as LinearLayout.LayoutParams).apply {
+                    setMargins(dp(16f), dp(4f), dp(16f), dp(4f))
+                }
                 rows.add(row)
             }
         }

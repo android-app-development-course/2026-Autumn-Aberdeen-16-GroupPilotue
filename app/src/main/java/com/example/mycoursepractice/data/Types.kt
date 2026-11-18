@@ -63,7 +63,10 @@ class WorkItem(
     var note: String = "",
     var updatedBy: String? = null,
     var updatedAt: String? = null,
-    val fromMaterial: Boolean = true
+    val fromMaterial: Boolean = true,
+    var criteria: List<TaskCriterion> = emptyList(),
+    var expectedPercent: Int = 100,
+    var analysis: AnalysisResult? = null
 ) {
     val memberCount: Int get() = shares.size
 

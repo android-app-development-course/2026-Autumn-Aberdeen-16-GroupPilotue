@@ -14,6 +14,7 @@ import com.example.mycoursepractice.data.Demo
 import com.example.mycoursepractice.data.EvidenceKind
 import com.example.mycoursepractice.data.Stage
 import com.example.mycoursepractice.data.WorkItem
+import com.example.mycoursepractice.ui.taskInsights
 import com.example.mycoursepractice.ui.Fonts
 import com.example.mycoursepractice.ui.bindAppSettings
 import com.example.mycoursepractice.ui.Motion
@@ -31,7 +32,7 @@ class ItemDetailFragment : Fragment() {
     companion object {
         private const val ARG_ID = "id"
         fun newInstance(id: String) = ItemDetailFragment().apply {
-            arguments = Bundle().apply { putString(ARG_ID, id) }
+            arguments = Bundle().apply { putString(ARG_ID, id); putString("projectId", Demo.current.id) }
         }
     }
 
@@ -66,6 +67,7 @@ class ItemDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.getString("projectId")?.let { Demo.openProject(it) }
         rootView.findViewById<View>(R.id.backBar).setOnClickListener { popBack() }
         bindAppSettings(rootView)
         indexText.transitionName = "item_${item.id}"
@@ -103,6 +105,12 @@ class ItemDetailFragment : Fragment() {
         bindActions(item)
         bindEditLink(item)
         bindHistory(item)
+        val insights = rootView.findViewById<LinearLayout>(R.id.insightsPanel)
+        val content = insights.parent as LinearLayout
+        content.removeView(insights)
+        content.addView(insights, content.indexOfChild(metaText) + 1)
+        insights.removeAllViews()
+        insights.taskInsights(Demo.current, item)
 
         if (item.updatedAt != null && item.updatedBy != null) {
             metaText.text = metaText.text.toString() + " · 上次改动 " +

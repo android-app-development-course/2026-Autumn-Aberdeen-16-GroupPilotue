@@ -300,6 +300,7 @@ object Demo {
     init {
         seedProjects()
         seedInvitations()
+        projects.forEach { TaskInsights.seed(it) }
     }
 
     // ── 当前项目 ────────────────────────────────────────────────────────

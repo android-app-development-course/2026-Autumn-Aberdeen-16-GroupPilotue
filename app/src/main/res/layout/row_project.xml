@@ -3,11 +3,13 @@
     android:id="@+id/projectRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:clipToOutline="true"
+    android:background="@drawable/bg_task_card"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:paddingStart="12dp"
     android:paddingTop="14dp"
-    android:paddingEnd="0dp"
+    android:paddingEnd="12dp"
     android:paddingBottom="14dp">
 
     <LinearLayout
@@ -47,5 +49,5 @@
         android:layout_height="14dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_chevron"
-        android:tint="@color/ink_40" />
+        android:tint="@color/sheet" />
 </LinearLayout>

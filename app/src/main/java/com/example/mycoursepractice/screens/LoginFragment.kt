@@ -102,6 +102,7 @@ class LoginFragment : Fragment() {
             else -> {
                 warn.showIf(false)
                 val ctx = requireContext()
+                if (Profile.password == null) Profile.setPassword(ctx, password)
                 Session.login(ctx, name)
                 Profile.save(
                     ctx,

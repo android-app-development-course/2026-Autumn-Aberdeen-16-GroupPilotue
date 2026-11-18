@@ -90,6 +90,11 @@
             android:paddingEnd="24dp"
             android:paddingBottom="36dp">
 
+            <LinearLayout
+                android:id="@+id/insightsPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
             <TextView
                 android:id="@+id/indexText"
                 style="@style/Display"

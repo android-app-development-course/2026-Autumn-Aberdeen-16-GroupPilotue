@@ -43,9 +43,12 @@ class ProfileFragment : Fragment() {
     private lateinit var cta: TextView
 
     private var avatarPath: String? = null
+    private var editing = false
+    private var saving = false
+    private var request: com.example.mycoursepractice.data.UiRequest? = null
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) savePicked(uri)
+        if (uri != null && editing && view != null) savePicked(uri)
     }
 
     override fun onCreateView(
@@ -75,9 +78,21 @@ class ProfileFragment : Fragment() {
         emailField.setText(Profile.email)
         paint()
 
-        view.findViewById<View>(R.id.avatarBox).setOnClickListener { pickPhoto() }
+        view.findViewById<View>(R.id.avatarBox).setOnClickListener { if (editing) pickPhoto() }
 
-        cta.setOnClickListener { save() }
+        editing = false
+        setEditing(false)
+        cta.setOnClickListener { if (editing) save() else setEditing(true) }
+        view.findViewById<View>(R.id.cancelEdit).setOnClickListener {
+            accountField.setText(Profile.accountName)
+            realField.setText(Profile.realName)
+            phoneField.setText(Profile.phone)
+            emailField.setText(Profile.email)
+            avatarPath = Profile.avatarPath
+            warn.showIf(false)
+            setEditing(false)
+            paint()
+        }
 
         view.findViewById<View>(R.id.changePasswordBtn).setOnClickListener {
             PasswordSheet.show(this) {
@@ -106,9 +121,8 @@ class ProfileFragment : Fragment() {
                 BitmapFactory.decodeStream(input)
             } ?: return fail("这张图读不出来，换一张试试", null)
 
-            val file = File(ctx.filesDir, "avatar/me.jpg")
+            val file = File(ctx.filesDir, "avatar/draft-${System.currentTimeMillis()}.jpg")
             avatarPath = Avatar.store(ctx, bitmap, file)
-            Profile.setAvatar(ctx, avatarPath!!)
             paint()
         } catch (e: Exception) {
             fail("这张图读不出来，换一张试试", null)
@@ -146,10 +160,39 @@ class ProfileFragment : Fragment() {
         }
 
         warn.showIf(false)
-        Profile.save(ctx, account, real, phone, email)
+        if (saving) return
+        saving = true
+        cta.isEnabled = false
+        request = com.example.mycoursepractice.data.UiServices.repository.saveProfile(ctx,
+            com.example.mycoursepractice.data.ProfileDraft(account, real, phone, email, avatarPath)) { result ->
+            if (view == null) return@saveProfile
+            saving = false
+            cta.isEnabled = true
+            result.onSuccess {
+                setEditing(false)
+                paint()
+                Toast.makeText(ctx, "资料已保存", Toast.LENGTH_SHORT).show()
+            }.onFailure { fail(it.message ?: "保存失败，请重试", null) }
+        }
+    }
 
-        Motion.stamp(cta)
-        cta.postDelayed({ popBack() }, 160)
+    private fun setEditing(value: Boolean) {
+        editing = value
+        listOf(realField, accountField, phoneField, emailField).forEach {
+            it.isFocusable = value
+            it.isFocusableInTouchMode = value
+            it.isCursorVisible = value
+            it.isLongClickable = value
+        }
+        view?.findViewById<View>(R.id.avatarBox)?.isEnabled = value
+        view?.findViewById<View>(R.id.cancelEdit)?.showIf(value)
+        cta.text = if (value) "保存个人信息" else "编辑个人信息"
+    }
+
+    override fun onDestroyView() {
+        request?.cancel()
+        saving = false
+        super.onDestroyView()
     }
 
     private fun fail(message: String, focus: View?) {

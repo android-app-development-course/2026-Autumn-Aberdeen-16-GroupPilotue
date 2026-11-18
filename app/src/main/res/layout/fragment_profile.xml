@@ -214,8 +214,16 @@
             style="@style/BtnPrimary"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="保存资料" />
+            android:text="编辑个人信息" />
 
+        <TextView
+            android:id="@+id/cancelEdit"
+            style="@style/BtnGhost"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="6dp"
+            android:text="取消编辑"
+            android:visibility="gone" />
         <TextView
             android:id="@+id/logoutLink"
             style="@style/MicroOchre"

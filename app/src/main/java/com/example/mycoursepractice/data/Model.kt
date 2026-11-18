@@ -45,7 +45,8 @@ class Project(
     var inviteCode: String = "",
     var requireApproval: Boolean = false
 ) {
-    fun member(id: String): Member = members.first { it.id == id }
+    val formerMembers: MutableList<Member> = mutableListOf()
+    fun member(id: String): Member = (members + formerMembers).first { it.id == id }
 
     fun nameOf(id: String?): String = id?.let { member(it).name } ?: "—"
 

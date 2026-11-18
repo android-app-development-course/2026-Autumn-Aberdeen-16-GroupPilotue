@@ -48,6 +48,13 @@ fun Fragment.bindBackBar(root: View, label: String) {
 
 /** Tab 页 masthead 右上角的同一个入口；有返回箭头的页面顺带接上「回项目库」。 */
 fun Fragment.bindAppSettings(root: View) {
+    root.findViewById<TextView>(R.id.groupLabel)?.apply {
+        text = com.example.mycoursepractice.data.Demo.groupLabel + " ›"
+        minHeight = context.dp(48f)
+        isFocusable = true
+        contentDescription = "小组总览与成员管理"
+        setOnClickListener { push(com.example.mycoursepractice.screens.GroupOverviewFragment()) }
+    }
     root.findViewById<View>(R.id.appSettings)?.setOnClickListener { SettingsSheet.show(this) }
     root.findViewById<View>(R.id.libraryBack)?.setOnClickListener { tabHost()?.openLibrary() }
 }

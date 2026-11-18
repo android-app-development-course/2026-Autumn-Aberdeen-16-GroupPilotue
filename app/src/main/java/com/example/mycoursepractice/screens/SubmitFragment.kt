@@ -15,6 +15,9 @@ import com.example.mycoursepractice.data.Demo
 import com.example.mycoursepractice.data.Evidence
 import com.example.mycoursepractice.data.EvidenceKind
 import com.example.mycoursepractice.data.Stage
+import com.example.mycoursepractice.ui.*
+import com.example.mycoursepractice.data.UiRequest
+import com.example.mycoursepractice.data.UiServices
 import com.example.mycoursepractice.ui.Motion
 import com.example.mycoursepractice.ui.bindBackBar
 import com.example.mycoursepractice.ui.colorOf
@@ -47,6 +50,7 @@ class SubmitFragment : Fragment() {
     private var pickedName: String? = null
     private var pickedMeta: String? = null
     private var submitted = false
+    private var analysisRequest: UiRequest? = null
 
     private val item get() = Demo.item(requireArguments().getString(ARG_ID)!!)
     private val filePanel: LinearLayout get() = rootView.findViewById(R.id.filePanel)
@@ -195,14 +199,72 @@ class SubmitFragment : Fragment() {
 
         submitted = true
         warnText.show(false)
-        item.evidence = evidence
-        item.stage = Stage.PENDING
-        item.affected = false
-        Demo.bump()
-
         hideKeyboard()
-        Motion.stamp(cta)
-        cta.postDelayed({ if (isAdded) popBack() }, 170)
+        setInputsEnabled(false)
+        cta.isEnabled = false
+        cta.text = "正在解析材料…"
+        val panel = rootView.findViewById<LinearLayout>(R.id.analysisPanel)
+        panel.removeAllViews()
+        panel.show(true)
+        val status = requireContext().label("正在读取材料 · 0%", 16f)
+        panel.addView(status)
+        val progress = android.widget.ProgressBar(requireContext(), null, android.R.attr.progressBarStyleHorizontal).apply {
+            max = 100
+            progressTintList = android.content.res.ColorStateList.valueOf(colorOf(R.color.accent))
+            progressBackgroundTintList = android.content.res.ColorStateList.valueOf(colorOf(R.color.line))
+        }
+        panel.addView(progress, LinearLayout.LayoutParams(-1, dp(10f)))
+        panel.addView(requireContext().label("演示解析 · 深色表示已完成，浅色表示剩余", 12f))
+        panel.addView(requireContext().action("取消解析") {
+            analysisRequest?.cancel()
+            submitted = false
+            setInputsEnabled(true)
+            cta.isEnabled = true
+            cta.text = "重新提交并解析"
+            panel.show(false)
+        })
+        val note = rootView.findViewById<EditText>(R.id.noteField).text.toString()
+        analysisRequest = UiServices.repository.analyze(Demo.current.id, item.id, evidence, note, { percent ->
+            if (view != null) {
+                progress.progress = percent
+                status.text = "${if (percent < 40) "读取材料" else if (percent < 85) "对照任务细则" else "生成比例图表"} · $percent%"
+            }
+        }) { result ->
+            if (view != null) {
+                result.onSuccess {
+                    panel.removeAllViews()
+                    panel.addView(requireContext().label("解析完成 · 待成员验收", 20f))
+                    panel.taskInsights(Demo.current, item)
+                    cta.text = "完成，返回任务详情"
+                    cta.isEnabled = true
+                    cta.setOnClickListener { popBack() }
+                    rootView.findViewById<TextView>(R.id.footerNote).text = "解析结果已同步到任务总览；验收前不增加贡献分"
+                }.onFailure {
+                    submitted = false
+                    setInputsEnabled(true)
+                    cta.isEnabled = true
+                    cta.text = "重试解析"
+                    panel.removeAllViews()
+                    panel.addView(requireContext().label(it.message ?: "解析失败，请重试"))
+                }
+            }
+        }
+    }
+
+    private fun setInputsEnabled(enabled: Boolean) {
+        fun visit(v: View) {
+            v.isEnabled = enabled
+            if (v is ViewGroup) for (i in 0 until v.childCount) visit(v.getChildAt(i))
+        }
+        visit(modeBar)
+        visit(rootView.findViewById(R.id.panels))
+        rootView.findViewById<View>(R.id.noteField).isEnabled = enabled
+    }
+
+    override fun onDestroyView() {
+        analysisRequest?.cancel()
+        submitted = false
+        super.onDestroyView()
     }
 
     private fun warn(message: String) {

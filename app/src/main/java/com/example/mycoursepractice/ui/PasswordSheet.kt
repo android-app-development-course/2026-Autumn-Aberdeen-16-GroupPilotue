@@ -29,6 +29,8 @@ object PasswordSheet {
         val dialog = Dialog(ctx)
         val root = LayoutInflater.from(ctx).inflate(R.layout.dialog_password, null)
 
+        val oldPass = root.findViewById<EditText>(R.id.oldPass)
+        var request: com.example.mycoursepractice.data.UiRequest? = null
         val newPass = root.findViewById<EditText>(R.id.newPass)
         val repeatPass = root.findViewById<EditText>(R.id.repeatPass)
         val warn = root.findViewById<TextView>(R.id.passWarn)
@@ -56,6 +58,7 @@ object PasswordSheet {
             }
             override fun afterTextChanged(s: Editable?) = Unit
         }
+        oldPass.addTextChangedListener(clearWarn)
         newPass.addTextChangedListener(clearWarn)
         repeatPass.addTextChangedListener(clearWarn)
 
@@ -69,11 +72,16 @@ object PasswordSheet {
                 p1.length < 6 -> return@setOnClickListener fail("密码至少 6 位", newPass)
                 p1 != p2 -> return@setOnClickListener fail("两次输入的密码不一样", repeatPass)
             }
-            Profile.setPassword(ctx, p1)
-            dialog.dismiss()
-            onSaved()
+            val save = root.findViewById<View>(R.id.saveBtn)
+            save.isEnabled = false
+            request = com.example.mycoursepractice.data.UiServices.repository.changePassword(ctx, oldPass.text.toString(), p1) { result ->
+                save.isEnabled = true
+                result.onSuccess { dialog.dismiss(); onSaved() }
+                    .onFailure { fail(it.message ?: "修改失败，请重试", oldPass) }
+            }
         }
 
+        dialog.setOnDismissListener { request?.cancel() }
         dialog.show()
 
         root.translationY = ctx.dp(24f).toFloat()
